@@ -1,4 +1,4 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<!DOCTYPE>
 <HTML>
 <HEAD>
     <TITLE>小小萌 - 个人主页</TITLE>
@@ -52,7 +52,7 @@ transform: rotate(360deg);
 			color: #fff;
 			transform: translateX(-50%);
 			left: 50%;
-			top:95%;
+			top:75%;
 			position: absolute;
 			text-align: center;
 		}
@@ -60,13 +60,77 @@ transform: rotate(360deg);
 			border-collapse: separate;
 			border-spacing: 35px 0px;
 		}
+		.leftbar-btn {
+			position: fixed; /*设置按钮位置可变 */
+			left: 0; top: 0; /*初始化按钮位置 */
+			border: none;
+			background: none;
+			padding: 6px;
+			transition: 1s; /*过渡效果，值需要与侧边栏的相同，以便紧挨移动*/
+			cursor:pointer;
+    }
+	 .leftbar {
+        width: 0; /*由于是左侧侧边栏，所以width先初始化为0*/
+        height: 100%;
+        position: fixed; /*设置按钮位置可变 */
+        z-index: 1; /*设置堆叠顺序，侧边栏高于body*/
+        top: 0; left: 0; /*初始化侧边栏位置 */
+        background-color: rgba(12, 11, 11, 0.5);
+        border-radius: 0px 8px 8px 0px;
+        overflow-x: hidden; /*设置当内容溢出块级元素的左边缘和右边缘时显示的内容，溢出则隐藏*/
+        transition: 1s; /*值需要与按钮的相同*/
+    }
+	.leftbar .mess{
+		padding:15px;
+		text-align:center;
+		color:#fff;
+	}
     </style>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	
+	<script>
+		//侧边栏打开时的width
+    var leftbarWidth = "45%";
+ 
+    function toggleNav() {
+        //通过ID获取侧边栏、按钮、元素、视频元素
+        var leftbar = document.getElementById("leftbar")
+        var leftbarbtn = document.getElementById("leftbar-btn")
+        var video = document.getElementById("video-page1"); //获取视频元素是为了实现关闭侧边栏时停止播放做准备
+ 
+        //关闭侧边栏
+        if (leftbar.style.width === leftbarWidth) {//如果侧边栏的宽度=我们设置的侧边栏的宽度leftbarWidth
+            leftbar.style.width = "0";//设置侧边栏width=0
+            leftbarbtn.innerHTML = '<svg class="icon" style="width: 1em;height: 1em;vertical-align: middle;fill: currentColor;overflow: hidden;" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="1658"><path d="M919.121357 171.650255H104.878643C57.497777 171.650255 19.053516 133.205994 19.053516 85.825128S57.497777 0 104.878643 0h814.074099c47.380866 0 85.825128 38.444261 85.825127 85.825128a85.605928 85.605928 0 0 1-85.656512 85.825127zM919.121357 597.909435H104.878643c-47.380866 0-85.825128-38.444261-85.825127-85.993743 0-47.380866 38.444261-85.825128 85.825127-85.825127h814.074099c47.380866 0 85.825128 38.444261 85.825127 85.825127 0.168615 47.549481-38.275646 85.993743-85.656512 85.993743zM919.121357 1024H104.878643C57.497777 1024 19.053516 985.555739 19.053516 938.174872s38.444261-85.825128 85.825127-85.825127h814.074099c47.380866 0 85.825128 38.444261 85.825127 85.825127a85.605928 85.605928 0 0 1-85.656512 85.825128z" fill="#0068FF" p-id="1659"></path></svg>'//切换按钮中的图片
+            leftbarbtn.style.left = "0";//移动按钮
+            video.pause();//实现视频暂停播放
+        } else {//打开侧边栏
+            leftbar.style.width = leftbarWidth;//设置侧边栏width=leftbarWidth
+            leftbarbtn.innerHTML = '<svg class="icon" style="width: 1em;height: 1em;vertical-align: middle;fill: currentColor;overflow: hidden;" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="1688"><path d="M461.843747 512 10.406151 963.437601C-3.37504 977.218792-3.412751 999.712215 10.437524 1013.562479 24.384355 1027.509306 46.729466 1027.42679 60.562404 1013.593849L512 562.156248 963.437596 1013.593849C977.218787 1027.37504 999.712218 1027.412745 1013.562476 1013.562479 1027.509306 999.615652 1027.426786 977.270542 1013.593849 963.437601L562.156253 512 1013.593849 60.562399C1027.37504 46.781208 1027.412751 24.287786 1013.562476 10.43752 999.615645-3.509307 977.270534-3.42679 963.437596 10.406151L512 461.843752 60.562404 10.406151C46.781213-3.37504 24.287782-3.412745 10.437524 10.43752-3.509306 24.384347-3.426786 46.729458 10.406151 60.562399L461.843747 512 461.843747 512Z" fill="#389BFF" p-id="1689"></path></svg>'//切换按钮中的图片
+            leftbarbtn.style.left = leftbarWidth;//移动按钮
+        }
+    }
+	</script>
 </HEAD>
  
 <BODY>
  
 	<div id="jsi-cherry-container" class="container"></div>
+	<button class="leftbar-btn" id="leftbar-btn" onclick="toggleNav()">
+        <svg class="icon" style="width: 1em;height: 1em;vertical-align: middle;fill: currentColor;overflow: hidden;" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="1658"><path d="M919.121357 171.650255H104.878643C57.497777 171.650255 19.053516 133.205994 19.053516 85.825128S57.497777 0 104.878643 0h814.074099c47.380866 0 85.825128 38.444261 85.825127 85.825128a85.605928 85.605928 0 0 1-85.656512 85.825127zM919.121357 597.909435H104.878643c-47.380866 0-85.825128-38.444261-85.825127-85.993743 0-47.380866 38.444261-85.825128 85.825127-85.825127h814.074099c47.380866 0 85.825128 38.444261 85.825127 85.825127 0.168615 47.549481-38.275646 85.993743-85.656512 85.993743zM919.121357 1024H104.878643C57.497777 1024 19.053516 985.555739 19.053516 938.174872s38.444261-85.825128 85.825127-85.825127h814.074099c47.380866 0 85.825128 38.444261 85.825127 85.825127a85.605928 85.605928 0 0 1-85.656512 85.825128z" fill="#0068FF" p-id="1659"></path></svg>
+    </button>
+	
+	<!-- 左侧侧边栏 -->
+    <div class="leftbar" id="leftbar">
+		<div class="mess">
+			范范<br>
+			生日 0312<br>
+			性格 infq<br>
+			星座 双鱼<br>
+			标签 杂食党  主发日常
+		</div>
+		<iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86 src="https://music.163.com/outchain/player?type=2&id=1467444619&auto=1&height=66"></iframe>
+    </div>
 	<div class="btnbg">
         <div>
 			<img class="head" src="./head.jpg" />
@@ -83,20 +147,22 @@ transform: rotate(360deg);
 					</td>
 				</tr>
 			</table>
-			<iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86 src="https://music.163.com/outchain/player?type=2&id=1467444619&auto=1&height=66"></iframe>
-			<p id="runtime"></p>
-			<p class="locate"><i class="fas fa-map-marker-alt" style="font-size:11px"></i><b> 广东</b></p>
         </div>
     <!-- <button type="button" onclick="toggleAnimation(this)">Stop</button> -->
     </div>
-	<span class="copyright">&copy; 2026</span>
+	<span class="copyright">
+	<p class="locate" style="font-size:12px;"><i class="fas fa-map-marker-alt" style="font-size:10px"></i> 广东</p>
+	<p id="runtime"></p>
+	&copy; 2026</span>
 
 <script>
 	var btn=document.getElementById("icon");
 	var btn1=document.getElementById("icon1");
 	var btn2=document.getElementById("icon2");
 	btn2.onclick=function(){
-		alert("暂时未公开！");
+		//alert("暂时未公开！");
+		https://v.douyin.com/CYKkaAon7cE/
+		window.open("https://v.douyin.com/CYKkaAon7cE/");
 	}
 	btn.onclick=function(){
 		//window.location.replace('www.baidu.com')
